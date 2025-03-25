@@ -37,5 +37,9 @@ document. addEventListener("DOMContentLoaded", () =>{
   const handleVoteSubmit = async (event, character) => {
     event.preventDefault();
     const voteToAdd = parseInt(votesInput.value, 10);
-    if (isNaN(votesToAdd)) return;
+    if (isNaN(votesToAdd)) return;//updates votes 
   }
+//update votes locally and on the server
+character.votes += votesToAdd;
+await updateVotes(character.id, character.votes);
+//update the displayed vote count
