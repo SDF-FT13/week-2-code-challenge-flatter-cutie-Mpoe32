@@ -47,13 +47,22 @@ document.getElementById("vote-count").textContent = character.votes;
 votesInput.value = "";
 
 //update votes on the server
-const updateVotes = async(id, votes) => {
-  await fetch(`${apiUrl}/${id}`,{
-    method: "PARTCH"
-    headers:{
-      "Content-Type":"application/json",
+const updateVotes = async (id, votes) => {
+  await fetch(`${apiUrl}/${id}`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
     },
-    body:JSON.stringify({votes}),
-}
-)};
+    body: JSON.stringify({ votes }),
+  });
+};
+//reset votes for all characters
+resetVotesBtn.addEventListener("click", async () =>{
+  const characters = await fetch(apiUrl).then((res) => res.json());
+  for(const character of characters){
+    await updateVotes(charracter.id, 0);
+  }
+loadCharacters();
+});
+
 
