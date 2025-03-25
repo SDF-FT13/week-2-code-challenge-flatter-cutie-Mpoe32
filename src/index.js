@@ -65,4 +65,24 @@ resetVotesBtn.addEventListener("click", async () =>{
 loadCharacters();
 });
 
+// add a new character
+characterForm.addEventListener('submit', async (event) => {
+  event.preventDefault();
+  
+  const newCharacter = {
+    name: nameInput.value,
+    image: imageInput.value,
+    votes: 0,
+  };
+
+  const response = await fetch(apiUrl, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(newCharacter),
+  });
+
+  const createdCharacter = await response.json();
+
 
