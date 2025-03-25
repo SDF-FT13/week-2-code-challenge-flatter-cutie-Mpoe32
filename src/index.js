@@ -43,3 +43,17 @@ document. addEventListener("DOMContentLoaded", () =>{
 character.votes += votesToAdd;
 await updateVotes(character.id, character.votes);
 //update the displayed vote count
+document.getElementById("vote-count").textContent = character.votes;
+votesInput.value = "";
+
+//update votes on the server
+const updateVotes = async(id, votes) => {
+  await fetch(`${apiUrl}/${id}`,{
+    method: "PARTCH"
+    headers:{
+      "Content-Type":"application/json",
+    },
+    body:JSON.stringify({votes}),
+}
+)};
+
